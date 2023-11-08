@@ -3,6 +3,7 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 
 public class AppInstallDevice {
 
@@ -19,7 +20,7 @@ public class AppInstallDevice {
         AndroidDriver androidDriver;
 
         try {
-            androidDriver= new AndroidDriver(new URL("http://192.168.3.20:4723/"),uiAutomator2Options);
+            androidDriver= new AndroidDriver(new URL("http://192.168.115.12:4723/"),uiAutomator2Options);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

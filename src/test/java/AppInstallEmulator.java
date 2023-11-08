@@ -21,7 +21,7 @@ public class AppInstallEmulator {
         AndroidDriver androidDriver;
 
         try {
-            androidDriver= new AndroidDriver(new URL("http://192.168.3.20:4723/"),uiAutomator2Options);
+            androidDriver= new AndroidDriver(new URL("http://192.168.115.12:4723/"),uiAutomator2Options);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
