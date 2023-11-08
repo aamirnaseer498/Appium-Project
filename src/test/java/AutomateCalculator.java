@@ -23,7 +23,7 @@ public class AutomateCalculator {
         AndroidDriver androidDriver;
 
         try {
-            androidDriver= new AndroidDriver(new URL("http://192.168.115.12:4723/"),uiAutomator2Options);
+            androidDriver= new AndroidDriver(new URL("http://192.168.137.1:4723/"),uiAutomator2Options);
             Thread.sleep(2000);
 
             WebElement sevenDigitButton= androidDriver.findElement(AppiumBy.id("com.google.android.calculator:id/digit_7"));
@@ -49,9 +49,7 @@ public class AutomateCalculator {
             Thread.sleep(2000);
             androidDriver.quit();
 
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (MalformedURLException | InterruptedException e) {
             throw new RuntimeException(e);
         }
 
