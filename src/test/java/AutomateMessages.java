@@ -1,6 +1,9 @@
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.MobileCommand;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.remote.MobileBrowserType;
+import io.appium.java_client.remote.MobilePlatform;
 import org.openqa.selenium.WebElement;
 
 import java.net.MalformedURLException;
