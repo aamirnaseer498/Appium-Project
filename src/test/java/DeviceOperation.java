@@ -19,9 +19,8 @@ public class DeviceOperation {
 
     public void tap(WebElement webElement){
         // step 1
-        Point location= webElement.getLocation();
-        Dimension size= webElement.getSize();
-        Point centerOfElement= getcenterOFElement(location, size);
+        Point centerOfElement= new Point(webElement.getLocation().getX() + webElement.getSize().getWidth(),
+                webElement.getLocation().getY() + webElement.getSize().getHeight());
 
         // step 2
         PointerInput finger= new PointerInput(PointerInput.Kind.TOUCH,"finger");
@@ -35,8 +34,25 @@ public class DeviceOperation {
         deviceAndroidDriver.perform(Collections.singleton(steps));
     }
 
-    private Point getcenterOFElement(Point location, Dimension size){
-        return new Point(location.getX() + size.getWidth()/2, location.getY() + size.getHeight()/2);
+    public void doubleTap(WebElement webElement){
+        // step 1
+        Point centerOfElement= new Point(webElement.getLocation().getX() + webElement.getSize().getWidth(),
+                webElement.getLocation().getY() + webElement.getSize().getHeight());
+
+        // step 2
+        PointerInput finger= new PointerInput(PointerInput.Kind.TOUCH,"finger");
+        Sequence steps= new Sequence(finger,1);
+        steps.addAction(finger.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(), centerOfElement));
+        steps.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        steps.addAction(new Pause(finger,Duration.ofMillis(50)));
+        steps.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        steps.addAction(new Pause(finger,Duration.ofMillis(50)));
+        steps.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        steps.addAction(new Pause(finger,Duration.ofMillis(50)));
+        steps.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        // step 3
+        deviceAndroidDriver.perform(Collections.singleton(steps));
     }
 
 }
