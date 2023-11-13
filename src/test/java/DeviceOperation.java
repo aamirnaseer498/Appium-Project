@@ -8,6 +8,8 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 
 public class DeviceOperation {
@@ -71,6 +73,34 @@ public class DeviceOperation {
 
         // step 3
         deviceAndroidDriver.perform(Collections.singleton(steps));
+    }
+
+    public void zoomIn(WebElement webElement){
+        // step 1
+        Point centerOfElement= new Point(webElement.getLocation().getX() + webElement.getSize().getWidth(),
+                webElement.getLocation().getY() + webElement.getSize().getHeight());
+
+        // step 2
+        PointerInput finger1= new PointerInput(PointerInput.Kind.TOUCH,"finger1");
+        PointerInput finger2= new PointerInput(PointerInput.Kind.TOUCH,"finger2");
+
+        // step 3
+        Sequence step1= new Sequence(finger1,1);
+        step1.addAction(finger1.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(), centerOfElement));
+        step1.addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        step1.addAction(new Pause(finger1,Duration.ofMillis(200)));
+        step1.addAction(finger1.createPointerMove(Duration.ofMillis(200),PointerInput.Origin.viewport(), centerOfElement.getX() + 100, centerOfElement.getY() - 100));
+        step1.addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        Sequence step2= new Sequence(finger2,1);
+        step2.addAction(finger2.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(), centerOfElement));
+        step2.addAction(finger2.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        step2.addAction(new Pause(finger2,Duration.ofMillis(200)));
+        step2.addAction(finger2.createPointerMove(Duration.ofMillis(200),PointerInput.Origin.viewport(), centerOfElement.getX() - 100, centerOfElement.getY() + 100));
+        step2.addAction(finger2.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        // step 4
+        deviceAndroidDriver.perform(Arrays.asList(step1,step2));
     }
 
 }

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class AutomateGallery {
+public class AutomateGalleryDoubleTap {
 
     public static void main(String[] args) {
 
