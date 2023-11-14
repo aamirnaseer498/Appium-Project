@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class DeviceOperation {
 
@@ -165,6 +166,26 @@ public class DeviceOperation {
         steps.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
         steps.addAction(new Pause(finger,Duration.ofMillis(50)));
         steps.addAction(finger.createPointerMove(Duration.ofMillis(100),PointerInput.Origin.viewport(), centerOfElement.getX(), centerOfElement.getY() + 1000));
+        steps.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        // step 4
+        deviceAndroidDriver.perform(Collections.singleton(steps));
+    }
+
+    public void seekForward(WebElement webElement){
+        // step 1
+        Point centerOfElement= new Point(webElement.getLocation().getX(),
+                webElement.getLocation().getY() + webElement.getSize().getHeight()/2);
+
+        // step 2
+        PointerInput finger= new PointerInput(PointerInput.Kind.TOUCH,"finger");
+
+        // step 3
+        Sequence steps= new Sequence(finger,1);
+        steps.addAction(finger.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(), centerOfElement));
+        steps.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        steps.addAction(new Pause(finger,Duration.ofMillis(500)));
+        steps.addAction(finger.createPointerMove(Duration.ofMillis(500),PointerInput.Origin.viewport(), webElement.getLocation().getX() + 200, centerOfElement.getY()));
         steps.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         // step 4
