@@ -176,6 +176,7 @@ public class DeviceOperation {
         // step 1
         Point centerOfElement= new Point(webElement.getLocation().getX(),
                 webElement.getLocation().getY() + webElement.getSize().getHeight()/2);
+        int forwardProgress= (int) (webElement.getSize().getWidth()*(50.0f/100.0f));
 
         // step 2
         PointerInput finger= new PointerInput(PointerInput.Kind.TOUCH,"finger");
@@ -185,7 +186,28 @@ public class DeviceOperation {
         steps.addAction(finger.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(), centerOfElement));
         steps.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
         steps.addAction(new Pause(finger,Duration.ofMillis(500)));
-        steps.addAction(finger.createPointerMove(Duration.ofMillis(500),PointerInput.Origin.viewport(), webElement.getLocation().getX() + 200, centerOfElement.getY()));
+        steps.addAction(finger.createPointerMove(Duration.ofMillis(500),PointerInput.Origin.viewport(), webElement.getLocation().getX() + forwardProgress, centerOfElement.getY()));
+        steps.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        // step 4
+        deviceAndroidDriver.perform(Collections.singleton(steps));
+    }
+
+    public void seekBackward(WebElement webElement){
+        // step 1
+        Point centerOfElement= new Point(webElement.getLocation().getX(),
+                webElement.getLocation().getY() + webElement.getSize().getHeight()/2);
+        int backwardProgress= (int) (webElement.getSize().getWidth()*(25.0f/100.0f));
+
+        // step 2
+        PointerInput finger= new PointerInput(PointerInput.Kind.TOUCH,"finger");
+
+        // step 3
+        Sequence steps= new Sequence(finger,1);
+        steps.addAction(finger.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(), centerOfElement));
+        steps.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        steps.addAction(new Pause(finger,Duration.ofMillis(500)));
+        steps.addAction(finger.createPointerMove(Duration.ofMillis(500),PointerInput.Origin.viewport(), webElement.getLocation().getX() - backwardProgress, centerOfElement.getY()));
         steps.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         // step 4

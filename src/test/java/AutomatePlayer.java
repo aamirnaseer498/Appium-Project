@@ -41,6 +41,8 @@ public class AutomatePlayer {
             WebElement trackSeekBar= androidDriver.findElement(AppiumBy.id("com.mxtech.videoplayer.ad:id/music_progress"));
             deviceOperation.seekForward(trackSeekBar);
             Thread.sleep(500);
+            deviceOperation.seekBackward(trackSeekBar);
+            Thread.sleep(500);
 
             Thread.sleep(2500);
             androidDriver.quit();
